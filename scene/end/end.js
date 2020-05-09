@@ -1,21 +1,16 @@
-var endScene = function(game) {
-    var s = {
-        game: game,
+class EndScene extends Scene {
+    constructor(game) {
+        super(game)
+        game.registerAction('t', function() {
+            // resume
+            var title = new StartScene(game)
+            game.replaceScene(title)
+        })
     }
 
-    s.update = function() {
-    }
-
-    game.registerAction('t', function() {
-        var title = startScene(game)
-        // turn to game over scene
-        game.replaceScene(title)
-    })
-
-    s.draw = function() {
+    draw() {
         // draw game over
-        game.context.font = "20px serif"
-        game.context.fillText("game over, press t to continue", 100, 150)
+        this.game.context.font = "20px serif"
+        this.game.context.fillText("game over, press t to continue", 100, 150)
     }
-    return s
 }

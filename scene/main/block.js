@@ -5,11 +5,10 @@ var Block = function(game, position) {
         image: img.image,
         x: position[0],
         y: position[1],
-        w: 50,
-        h: 20,
         alive: true,
         lives: position[2] || 1,
     }
+    // log('block h w', img.image.height, img.image.width)
     o.kill = function() {
         o.lives--
         if(o.lives < 1) {

@@ -2,8 +2,8 @@ var Ball = function(game) {
     var img = game.imageByName('ball')
     var o = {
         image: img.image,
-        x: 190,
-        y: 240,
+        x: 200,
+        y: 260,
         speedx: 10,
         speedy: 10,
         fired: false,

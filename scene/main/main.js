@@ -46,7 +46,7 @@ var enableDebugMode = function(game, ball, mode=false) {
     })
 }
 
-var Scene = function(game) {
+var MainScene = function(game) {
     var s = {
         game: game,
     }
@@ -79,7 +79,7 @@ var Scene = function(game) {
 
         // check game over
         if(ball.y > paddle.y) {
-            var end = endScene(game)
+            var end = new EndScene(game)
             // turn to game over scene
             game.replaceScene(end)
         }

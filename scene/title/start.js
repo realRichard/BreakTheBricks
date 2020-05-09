@@ -1,21 +1,16 @@
-var startScene = function(game) {
-    var s = {
-        game: game,
+class StartScene extends Scene {
+    constructor(game) {
+        super(game)
+        game.registerAction('s', function() {
+            // start game
+            var scene = MainScene(game)
+            game.replaceScene(scene)
+        })
     }
 
-    game.registerAction('s', function() {
-        var scene = Scene(game)
-        // start scene title
-        game.replaceScene(scene)
-    })
-
-    s.update = function() {
-    }
-
-    s.draw = function() {
+    draw() {
         // draw start scene
-        game.context.font = "20px serif"
-        game.context.fillText("press s to start game", 100, 150)
+        this.game.context.font = "20px serif"
+        this.game.context.fillText("press s to start game", 100, 150)
     }
-    return s
 }
