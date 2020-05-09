@@ -79,9 +79,9 @@ var Scene = function(game) {
 
         // check game over
         if(ball.y > paddle.y) {
-            var endScene = SceneEnd(game)
+            var end = endScene(game)
             // turn to game over scene
-            game.replaceScene(endScene)
+            game.replaceScene(end)
         }
 
         ball.move()

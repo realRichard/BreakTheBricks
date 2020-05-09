@@ -12,10 +12,9 @@ var images = {
 
 var __main = function() {
     var game = Game(images, function(game) {
-        var scene = Scene(game)
+        var start = startScene(game)
 
-        game.runWithScene(scene)
-        
+        game.runWithScene(start)
     })
 }
 
