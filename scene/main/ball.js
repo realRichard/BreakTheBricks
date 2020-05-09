@@ -24,8 +24,11 @@ var Ball = function(game) {
             o.y += o.speedy
         }
     }
-    o.rebound = function() {
+    o.reboundy = function() {
         o.speedy *= -1
+    }
+    o.reboundx = function() {
+        o.speedx *= -1
     }
 
     o.hasPosition = function(x, y) {

@@ -3,7 +3,7 @@ class StartScene extends Scene {
         super(game)
         game.registerAction('s', function() {
             // start game
-            var scene = MainScene(game)
+            var scene = new MainScene(game)
             game.replaceScene(scene)
         })
     }

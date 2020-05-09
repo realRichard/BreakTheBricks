@@ -9,7 +9,7 @@ var imageFromPath = function(path) {
 }
 
 var rectIntersects = function(a, b) {
-    // fabulous
+    // fabulous, much better to isolate the passed paremeter from inner of function
     var ball = a
     var o = b
     if(ball.y + ball.image.height > o.y && ball.y < o.y + o.image.height) {
@@ -34,5 +34,3 @@ var loadLevel = function(game, n) {
     }
     return blocks
 }
-
-

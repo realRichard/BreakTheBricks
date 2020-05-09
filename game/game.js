@@ -1,40 +1,82 @@
-var Game = function(images, runCallback) {
-    var g = {
-        actions: {},
-        keydowns: {},
-        images: {},
+class Game {
+    constructor(images, runCallback) {
+        // global frame per second
+        window.fps = 30
+        // images like this
+        // name: path
+        // images = {
+        //     paddle: 'img/paddle.png',
+        //     ball: 'img/ball.png',
+        //     block: 'img/block.png',
+        // }
+        this.images = images
+        // callback
+        this.runCallback = runCallback
+        // use to save img referrence
+        // name: imgReferrence
+        this.img = {}
+        // could be change scene
+        this.scene = null
+        // key with action
+        // key: function
+        this.actions = {}
+        // key with status
+        // key: bool
+        this.keydowns = {}
+        this.canvas = document.querySelector('#id-canvas')
+        this.context = this.canvas.getContext('2d')
+
+        var self = this
+        // events
+        window.addEventListener('keydown', function(event) {
+            self.keydowns[event.key] = true
+        })
+        window.addEventListener('keyup', function(event) {
+            self.keydowns[event.key] = false
+        })
+
+        this.init()
     }
 
-    var canvas =  document.querySelector('#id-canvas')  
-    var context = canvas.getContext('2d')
-    g.canvas = canvas
-    g.context = context
+    registerAction = function(key, callback) {
+        this.actions[key] = callback
+    }
+
     // draw
-    g.drawImage = function(Image) {
-        g.context.drawImage(Image.image, Image.x, Image.y)
-    }
-    // events
-    window.addEventListener('keydown', function(event) {
-        g.keydowns[event.key] = true
-    })
-    window.addEventListener('keyup', function(event) {
-        g.keydowns[event.key] = false
-    })
-    g.registerAction = function(key, callback) {
-        g.actions[key] = callback
+    drawImage (Image) {
+        this.context.drawImage(Image.image, Image.x, Image.y)
     }
 
-    window.fps = 30
-
-    g.imageByName = function(name) {
+    imageByName = function(name) {
         // log('game.images', g.images[name])
         var img = {
-            image: g.images[name],
+            image: this.img[name],
         }
         return img
     }
 
-    var runloop = function() {
+    init() {
+        var g = this
+        var imageNames = Object.keys(g.images)
+        // use to detect whether images loaded completely
+        var count = 0
+        for(let i = 0; i < imageNames.length; i++) {
+            let name = imageNames[i]
+            let img = new Image()
+            img.src = images[name]
+            img.onload = function() {
+                g.img[name] = img
+                count++
+                if(count == imageNames.length) {
+                    // log('images onload', g.images)
+                    g.run()
+                }
+            }
+        }
+    }
+
+    runloop() {
+        var g = this
         // events
         // log('fps', window.fps)
         var actions = Object.keys(g.actions)
@@ -50,58 +92,39 @@ var Game = function(images, runCallback) {
         // update
         g.update()
         // clear
-        context.clearRect(0, 0, canvas.width, canvas.height)
+        g.context.clearRect(0, 0, g.canvas.width, g.canvas.height)
         // draw
         g.draw()
         // next run lopp
         setTimeout(function() {
-            runloop()
+            g.runloop()
         }, 1000 / window.fps)
     }
 
-    // load images before run
-    // fetch object' key, and genarate an array
-    var imageNames = Object.keys(images)
-    // use to detect whether images loaded completely
-    var count = 0
-    for(let i = 0; i < imageNames.length; i++) {
-        let name = imageNames[i]
-        let img = new Image()
-        img.src = images[name]
-        img.onload = function() {
-            g.images[name] = img
-            count++
-            if(count == imageNames.length) {
-                // log('images onload', g.images)
-                g.run()
-            }
-        }
+    replaceScene(scene) {
+        this.scene = scene
     }
 
-    g.replaceScene = function(scene) {
-        g.scene = scene
-    }
-
-    g.runWithScene = function(scene) {
+    runWithScene(scene) {
+        var g = this
         g.scene = scene
 
         // timer
         setTimeout(function() {
-            runloop()
+            g.runloop()
         }, 1000 / window.fps)
     }
 
-    g.update = function() {
-        g.scene.update()
+    update() {
+        this.scene.update()
     }
 
-    g.draw = function() {
-        g.scene.draw()
+    draw() {
+        this.scene.draw()
     }
 
-    g.run = function() {
-        runCallback(g)
+    run() {
+        var g = this
+        g.runCallback(g)
     }
-
-    return g
 }
