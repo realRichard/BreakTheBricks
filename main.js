@@ -1,4 +1,4 @@
-var paused = false
+window.paused = false
 var blocks = []
 var score = 0
 var enableDrag = false

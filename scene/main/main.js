@@ -14,7 +14,7 @@ class MainScene extends Scene {
             var k = event.key
             // pause game by press p
             if(k == 'p') {
-                paused = !paused
+                window.paused = !window.paused
             // switch level
             } else if('123456789'.includes(k)) {
                 self.blocks = loadLevel(self.game, Number(k))
@@ -79,7 +79,7 @@ class MainScene extends Scene {
     update() {
         var self = this
         // log('paused', paused)
-        if(paused) {
+        if(window.paused) {
             return 
         }
 
