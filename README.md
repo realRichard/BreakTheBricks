@@ -30,6 +30,8 @@
 
 ##  **Functional specification**
 
+- [X]   some blocks have multiple lives
+
 - [X]   we can drag the ball casually by mouse, so it's easy to test and debug
 
 - [X]   we also can change the speed of ball by sliding the range
