@@ -18,13 +18,15 @@
 
 ##  **Gameplay**
 
-    1. press s to start gaming
+    1. press s to enter the game interface
 
     2. press 1, 2, 3 to select game level
 
-    3. move paddle by key a and d
+    3. launch the ball with f
 
-    4. when game over, press t to continue
+    4. move paddle by key a and d
+
+    5. when game over, press t to continue
 
 ***
 
